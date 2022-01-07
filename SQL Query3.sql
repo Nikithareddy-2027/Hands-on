@@ -5,22 +5,28 @@ select * from orders
 select avg(purch_amt) as 'average purchase amount'
 from orders
 
+--SELECT AVG (purch_amt)
+--FROM orders;
+ 
+--avg
+--1461.7650000000000000
+
 --write a SQL query to count the number of unique salespeople. Return number of salespeople.  
 select * from salesman
 
-select count(name) as salespeople
-from salesman
+select COUNT (DISTINCT salesman_Id ) 
+from orders
 
 --write a SQL query to count the number of customers. Return number of customers.
 select * from customer
 
-select count(cust_name) as 'no.of customers'
+select count(*) 
 from customer
 
 --write a SQL query to find the maximum purchase amount
 select * from orders
 
-select max(purch_amt) as maxamount
+select min(purch_amt) as maxamount
 from orders
 
 
