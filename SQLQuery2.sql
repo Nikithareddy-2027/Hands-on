@@ -1,6 +1,6 @@
 create database Handson
 
-drop table orders
+drop table customer
 
 create table salesman(salesman_id int primary key,name varchar(50),city varchar(15), commission decimal(5,2))
 
@@ -12,7 +12,7 @@ insert into salesman values(5007, 'Paul Adam', 'Rose', 0.13)
 insert into salesman values(5003, 'Lauson Hen', 'San Jose ', 0.12)
 
 
-create table customer(customer_id int primary key, cust_name varchar(30), city varchar(15), grade int, salesman_id int references salesman(salesman_id))
+create table customer(customer_id int primary key, cust_name varchar(30), city varchar(15), grade int, salesman_id numeric(5))
 insert into customer values(3002, 'Nick Rimando', 'New York' ,100 , 5001)
 insert into customer values(3007, 'Brad Davis','New York' , 200, 5001)
 insert into customer values(3005, 'Graham Zusi', 'California' ,200, 5002)
@@ -43,6 +43,30 @@ select * from orders
 
 select * from customer
 
+
+--Assessment
+--Write a SQL query to calculate total purchase amount of all orders. Return total purchase amount.
+select sum(purch_amt) as sum
+from orders
+
+--write a SQL query to find the highest grade of the customers for each of the city. Return city, maximum grade.
+select city as City, max(grade)as Max
+from customer
+group by city
+
+--write a SQL query to find highest order (purchase) amount by each customer in a particular order date. 
+--Filter the result by highest order (purchase) amount above 2000.00. 
+--Return customer id, order date and maximum purchase amount.
+select customer_id as "Customer Id",ord_date as "order Date", max(purch_amt) as max
+from orders
+where purch_amt > 2000.00
+group by customer_id, ord_date
+order by max(purch_amt) asc
+
+--write a SQL query to find the salesperson and customer who belongs to same city. Return Salesman, cust_name and city.
+select salesman.name as Salesman, customer.cust_name as " Cust Name", customer.city as city
+from customer, salesman
+where customer.city = salesman.city 
 
 
 
